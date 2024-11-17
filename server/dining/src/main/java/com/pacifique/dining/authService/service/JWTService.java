@@ -1,5 +1,6 @@
 package com.pacifique.dining.authService.service;
 
+import com.pacifique.dining.authService.HttpMethods.EmailVerificationToken;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -42,6 +43,14 @@ public class JWTService {
 
     public String generateRefreshToken(UserDetails userDetails){
         return generateToken(new HashMap<>(), userDetails, REFRESH_TOKEN_EXPIRATION);
+    }
+
+    public EmailVerificationToken generateEmailVerificationToken(UserDetails userDetails){
+        String token = generateToken(new HashMap<>(), userDetails, REFRESH_TOKEN_EXPIRATION);
+
+        return EmailVerificationToken.builder()
+                .emailVerificationToken(token)
+                .build();
     }
 
     public String generateToken(

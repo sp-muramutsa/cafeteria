@@ -17,9 +17,13 @@ public class DiningApplication {
 		System.setProperty("DB_URL", dotenv.get("DB_URL"));
 		System.setProperty("DB_USERNAME", dotenv.get("DB_USERNAME"));
 		System.setProperty("DB_PASSWORD", dotenv.get("DB_PASSWORD"));
+
 		System.setProperty("SECRET_KEY", dotenv.get("SECRET_KEY"));
 		System.setProperty("ACCESS_TOKEN_EXPIRATION", dotenv.get("ACCESS_TOKEN_EXPIRATION"));
 		System.setProperty("REFRESH_TOKEN_EXPIRATION", dotenv.get("REFRESH_TOKEN_EXPIRATION"));
+
+		System.setProperty("MAIL_USERNAME", dotenv.get("MAIL_USERNAME"));
+		System.setProperty("MAIL_PASSWORD", dotenv.get("MAIL_PASSWORD"));
 
 
 		SpringApplication.run(DiningApplication.class, args);

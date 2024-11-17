@@ -45,10 +45,16 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Dorm dorm;
+
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
+            message="Password must be at least 8 characters long, include an uppercase letter, lowercase letter, digit, and special character."
+    )
     private String password;
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    private boolean isVerified;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -82,6 +88,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return isVerified;
     }
 }
