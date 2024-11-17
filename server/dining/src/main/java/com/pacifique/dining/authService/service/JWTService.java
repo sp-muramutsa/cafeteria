@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +16,16 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
-public class   JWTService {
+public class JWTService {
 
-    private static final String SECRET_KEY = "VNvOq1QazOuR1yqG9UNjz2yiyqiyfwrMB9i9Sqbmzss=";
+    @Value("${SECRET_KEY}")
+    private String SECRET_KEY;
+
+    @Value("${ACCESS_TOKEN_EXPIRATION}")
+    private long ACCESS_TOKEN_EXPIRATION;
+
+    @Value("${REFRESH_TOKEN_EXPIRATION}")
+    private long REFRESH_TOKEN_EXPIRATION;
 
     public String extractUserEmail(String jwtToken){
         return extractClaim(jwtToken, Claims::getSubject);
@@ -28,23 +36,27 @@ public class   JWTService {
         return claimsResolver.apply(claims);
     }
 
-    public String generateToken(UserDetails userDetails){
-        return generateToken(new HashMap<>(), userDetails);
+    public String generateAccessToken(UserDetails userDetails){
+        return generateToken(new HashMap<>(), userDetails, ACCESS_TOKEN_EXPIRATION);
+    }
+
+    public String generateRefreshToken(UserDetails userDetails){
+        return generateToken(new HashMap<>(), userDetails, REFRESH_TOKEN_EXPIRATION);
     }
 
     public String generateToken(
             Map<String, Object> extraClaims,
-            UserDetails userDetails
+            UserDetails userDetails,
+            long expirationTime
     ){
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
-
     }
 
     public boolean isTokenValid(String jwtToken, UserDetails userDetails){

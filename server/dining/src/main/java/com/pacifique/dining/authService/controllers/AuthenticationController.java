@@ -3,6 +3,7 @@ package com.pacifique.dining.authService.controllers;
 import com.pacifique.dining.authService.HttpMethods.AuthenticationRequest;
 import com.pacifique.dining.authService.HttpMethods.AuthenticationResponse;
 import com.pacifique.dining.authService.HttpMethods.RegisterRequest;
+import com.pacifique.dining.authService.HttpMethods.TokenRefreshRequest;
 import com.pacifique.dining.authService.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -25,7 +26,6 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody RegisterRequest request
     ) {
-        logger.debug("Register endpoint hit with request: {}", request);
         return ResponseEntity.ok(authenticationService.register(request));
     }
 
@@ -34,6 +34,13 @@ public class AuthenticationController {
             @RequestBody AuthenticationRequest request
     ) {
         return ResponseEntity.ok(authenticationService.authenticate(request));
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<AuthenticationResponse> refreshToken(
+            @RequestBody TokenRefreshRequest request
+    ) {
+        return ResponseEntity.ok(authenticationService.refreshToken(request));
     }
 
 }
