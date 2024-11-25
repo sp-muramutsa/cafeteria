@@ -1,8 +1,8 @@
-# Dining App Fullstack Backend Repository
+# Rowdy's Dining App 
 
 ## Overview
 
-This repository contains the backend for the Dining App, which is a web-based platform for managing dining services. The backend is built using **Spring Boot** (Java), and the database is **MySQL**. The frontend for this app is developed as a Single Page Application (SPA) using **React** and **TypeScript**.
+This repository contains both the backend and frontend for the Rowdy's Dining App, which is a platform for managing dining services. The backend is built using **Spring Boot** (Java), and the database is **MySQL**. The frontend for this app is developed as a Single Page Application (SPA) using **React** and **TypeScript**.
 
 ## Technologies Used
 
@@ -13,6 +13,7 @@ This repository contains the backend for the Dining App, which is a web-based pl
   - **Spring Security** for user authentication and authorization
   - **Spring Data JPA** for database interactions
   - **Spring Web** for RESTful APIs
+  - **JSON Web Token** for JWT Authentication
 
 - **Frontend**:
   - **React** SPA (Single Page Application)
@@ -27,8 +28,8 @@ This repository contains the backend for the Dining App, which is a web-based pl
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/dining-app-backend.git
-   cd dining-app-backend
+   git clone https://github.com/sp-muramutsa/cafeteria.git
+   cd caferia
    ```
 
 2. **Install dependencies**:
@@ -44,9 +45,9 @@ This repository contains the backend for the Dining App, which is a web-based pl
    - Update the database connection settings in `src/main/resources/application.properties`:
 
      ```properties
-     spring.datasource.url=jdbc:mysql://localhost:3306/dining_db
-     spring.datasource.username=your_username
-     spring.datasource.password=your_password
+     spring.datasource.url=jdbc:mysql://localhost:3306/<your_database_name>
+     spring.datasource.username=<your_username>
+     spring.datasource.password=<your_password>
      spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
      ```
 
@@ -63,8 +64,8 @@ This repository contains the backend for the Dining App, which is a web-based pl
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/dining-app-frontend.git
-   cd dining-app-frontend
+   git clone https://github.com/sp-muramutsa/cafeteria.git
+   cd cafeteria
    ```
 
 2. **Install dependencies**:
@@ -75,14 +76,7 @@ This repository contains the backend for the Dining App, which is a web-based pl
      npm install
      ```
 
-3. **Configure API endpoint**:
-   - In the `src/api` directory, update the API base URL to match the backend URL in your project:
-
-     ```typescript
-     const apiBaseUrl = "http://localhost:8080/api";  // Update if needed
-     ```
-
-4. **Run the frontend**:
+3. **Run the frontend**:
    - To start the development server for the frontend:
 
      ```bash
@@ -93,7 +87,7 @@ This repository contains the backend for the Dining App, which is a web-based pl
 
 ## Features
 
-- **User Authentication**: Users can register, log in, and manage their profiles using JWT tokens for authentication.
+- **User Authentication**: Users can register, confirm their email, log in, and access private routes using JWT tokens for authentication.
 
 ## Contributing
 
@@ -111,4 +105,4 @@ This project is licensed under the MIT License.
 
 ---
 
-For further details or any issues, feel free to raise a GitHub issue, and I’ll be happy to assist.
+For further details or any issues, feel free to raise a GitHub issue, and we’ll be happy to assist.
