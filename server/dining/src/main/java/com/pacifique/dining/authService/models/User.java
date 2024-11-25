@@ -29,7 +29,7 @@ public class User implements UserDetails {
     private String id;
 
     @Email(message = "email should be a valid email")
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@mcneese\\.edu$", message = "Email should be a valid McNeese Email ending in @mcneese.edu")
+    @Pattern(regexp = "^.+@mcneese\\.edu$", message = "Email should be a valid McNeese Email ending in @mcneese.edu")
     @Column(unique = true)
     private String email;
 
@@ -46,9 +46,7 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Dorm dorm;
 
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
-            message="Password must be at least 8 characters long, include an uppercase letter, lowercase letter, digit, and special character."
-    )
+    @NotBlank(message = "password cannot be null or blank")
     private String password;
 
     @Enumerated(EnumType.STRING)

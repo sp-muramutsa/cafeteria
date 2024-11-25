@@ -12,4 +12,3 @@ import lombok.NoArgsConstructor;
 public class EmailVerificationToken {
     private String emailVerificationToken;
 }
-

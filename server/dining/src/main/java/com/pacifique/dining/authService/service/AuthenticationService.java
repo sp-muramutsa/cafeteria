@@ -5,8 +5,8 @@ import com.pacifique.dining.authService.models.Dorm;
 import com.pacifique.dining.authService.models.Role;
 import com.pacifique.dining.authService.models.User;
 import com.pacifique.dining.authService.repository.UserRepository;
+import com.pacifique.dining.authService.utils.Validators;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class AuthenticationService {
 
     private final UserRepository userRepository;
@@ -41,6 +40,9 @@ public class AuthenticationService {
             throw new RuntimeException("User already exists with this email");
         }
 
+        // Validate email
+        Validators.validatePassword(request.getPassword());
+
         var user = User.builder()
                 .email(request.getEmail())
                 .mcneeseId(request.getMcneeseId())
@@ -58,7 +60,7 @@ public class AuthenticationService {
 
         // Send a welcome email to the newly registered user
         String subject = "Welcome to Rowdy's Dining Service!";
-        String verificationLink = "http://localhost:8080/api/v1/auth/verify?token=" + verificationToken.getEmailVerificationToken();
+        String verificationLink = "http://localhost:3000/verify?token=" + verificationToken.getEmailVerificationToken();
         String text = "Hello " + user.getFirstname() + ",\n\nPlease verify your email by clicking the following link: " + verificationLink;
         emailService.sendEmail(user.getEmail(), subject, text);
 

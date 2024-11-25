@@ -28,6 +28,9 @@ public class JWTService {
     @Value("${REFRESH_TOKEN_EXPIRATION}")
     private long REFRESH_TOKEN_EXPIRATION;
 
+    @Value("${EMAIL_VERIFICATION_TOKEN_EXPIRATION}")
+    private long EMAIL_VERIFICATION_TOKEN_EXPIRATION;
+
     public String extractUserEmail(String jwtToken){
         return extractClaim(jwtToken, Claims::getSubject);
     }
@@ -46,7 +49,7 @@ public class JWTService {
     }
 
     public EmailVerificationToken generateEmailVerificationToken(UserDetails userDetails){
-        String token = generateToken(new HashMap<>(), userDetails, REFRESH_TOKEN_EXPIRATION);
+        String token = generateToken(new HashMap<>(), userDetails, EMAIL_VERIFICATION_TOKEN_EXPIRATION);
 
         return EmailVerificationToken.builder()
                 .emailVerificationToken(token)
