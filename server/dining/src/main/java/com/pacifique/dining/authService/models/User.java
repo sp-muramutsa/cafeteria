@@ -29,7 +29,7 @@ public class User implements UserDetails {
     private String id;
 
     @Email(message = "email should be a valid email")
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@mcneese\\.edu$", message = "Email should be a valid McNeese Email ending in @mcneese.edu")
+    @Pattern(regexp = "^.+@mcneese\\.edu$", message = "Email should be a valid McNeese Email ending in @mcneese.edu")
     @Column(unique = true)
     private String email;
 
@@ -45,10 +45,14 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Dorm dorm;
+
+    @NotBlank(message = "password cannot be null or blank")
     private String password;
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    private boolean isVerified;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -82,6 +86,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return isVerified;
     }
 }

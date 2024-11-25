@@ -1,6 +1,6 @@
 package com.pacifique.dining.authService.config;
 
-import com.pacifique.dining.authService.repository.UserRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,15 +25,15 @@ public class SecurityConfiguration {
         http
                 .csrf(AbstractHttpConfigurer::disable)  // Disables CSRF
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/v1/auth/**").permitAll()  // Allow unauthenticated users to access public endpoints
-                        .anyRequest().authenticated() // All private routes should require authentication
+                        .requestMatchers("/api/v1/auth/**").permitAll()  // public endpoints
+                        .anyRequest().authenticated() // private routes require authentication
                 )
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Use stateless session management policy(JWT instead of storing sessions on our server)
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS) //stateless session management policy(JWT)
                 )
                 .authenticationProvider(authenticationProvider) // Set up our custom authentication process
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // JWT authentication then username and password authentication
 
-        return http.build(); // Build the SecurityFilterChain instance for use in our app.
+        return http.build();
     }
 }

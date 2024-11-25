@@ -36,7 +36,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         final String userEmail;
 
 
-        // Skip JWT processing if the Authorization header is absent or doesn't start with "Bearer "
+        // No JWT processing if the Authorization header is absent or doesn't start with "Bearer "
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
