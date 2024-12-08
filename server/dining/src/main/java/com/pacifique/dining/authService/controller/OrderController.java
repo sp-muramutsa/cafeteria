@@ -2,7 +2,6 @@ package com.pacifique.dining.authService.controller;
 
 import com.pacifique.dining.authService.entity.OrderStatus;
 import com.pacifique.dining.authService.repository.OrderRepository;
-import com.pacifique.dining.authService.repository.UserRepository;
 import com.pacifique.dining.authService.service.JWTService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -59,7 +58,7 @@ public class OrderController {
     ) {
         User user = jwtService.getAuthenticatedUser(authorizationHeader);
 
-        if (!order.getCustomerId().equals(user)) {
+        if (!order.getCustomerId().equals(user.getId())) {
             throw new RuntimeException("Unauthorized to update this order");
         }
 

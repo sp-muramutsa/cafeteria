@@ -2,7 +2,6 @@ package com.pacifique.dining.authService.controller;
 
 import com.pacifique.dining.authService.entity.Role;
 import com.pacifique.dining.authService.entity.User;
-import com.pacifique.dining.authService.http.AuthenticationResponse;
 import com.pacifique.dining.authService.http.EmailVerificationToken;
 import com.pacifique.dining.authService.http.RegisterRequest;
 import com.pacifique.dining.authService.repository.UserRepository;
