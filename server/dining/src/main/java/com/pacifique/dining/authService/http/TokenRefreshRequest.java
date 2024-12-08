@@ -1,4 +1,4 @@
-package com.pacifique.dining.authService.HttpMethods;
+package com.pacifique.dining.authService.http;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

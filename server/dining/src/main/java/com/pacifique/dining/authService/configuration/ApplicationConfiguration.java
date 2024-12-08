@@ -1,4 +1,4 @@
-package com.pacifique.dining.authService.config;
+package com.pacifique.dining.authService.configuration;
 
 import com.pacifique.dining.authService.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,13 +15,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @RequiredArgsConstructor
-public class ApplicationConfig {
+public class ApplicationConfiguration {
 
     private final UserRepository userRepository;
+
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found in db!"));
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
@@ -35,11 +41,6 @@ public class ApplicationConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception{
         return config.getAuthenticationManager();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
 }

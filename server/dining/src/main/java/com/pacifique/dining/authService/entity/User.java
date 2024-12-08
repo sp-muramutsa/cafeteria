@@ -1,4 +1,4 @@
-package com.pacifique.dining.authService.models;
+package com.pacifique.dining.authService.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -9,12 +9,16 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 
 @Entity
@@ -26,7 +30,7 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private UUID id;
 
     @Email(message = "email should be a valid email")
     @Pattern(regexp = "^.+@mcneese\\.edu$", message = "Email should be a valid McNeese Email ending in @mcneese.edu")
@@ -34,7 +38,7 @@ public class User implements UserDetails {
     private String email;
 
     @Size(min = 9, max = 9, message = "mcneeseId must be exactly 9 characters")
-    @Column(unique = true)
+    @Column(unique = true, nullable = true)
     private String mcneeseId;
 
     @NotBlank(message = "firstname cannot be null or blank")
@@ -50,9 +54,16 @@ public class User implements UserDetails {
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
     private Role role;
 
     private boolean isVerified;
+
+    @CreatedDate
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

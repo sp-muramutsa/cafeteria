@@ -1,4 +1,4 @@
-package com.pacifique.dining.authService.HttpMethods;
+package com.pacifique.dining.authService.http;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,5 +16,6 @@ public class RegisterRequest {
     private String firstname;
     private String lastname;
     private String dorm;
+    private String role;
     private String password;
 }

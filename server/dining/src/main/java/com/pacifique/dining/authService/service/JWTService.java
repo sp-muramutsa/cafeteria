@@ -1,11 +1,14 @@
 package com.pacifique.dining.authService.service;
 
-import com.pacifique.dining.authService.HttpMethods.EmailVerificationToken;
+import com.pacifique.dining.authService.entity.User;
+import com.pacifique.dining.authService.http.EmailVerificationToken;
+import com.pacifique.dining.authService.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -17,7 +20,10 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
+@RequiredArgsConstructor
 public class JWTService {
+
+    private final UserRepository userRepository;
 
     @Value("${SECRET_KEY}")
     private String SECRET_KEY;
@@ -54,6 +60,18 @@ public class JWTService {
         return EmailVerificationToken.builder()
                 .emailVerificationToken(token)
                 .build();
+    }
+
+    public User getAuthenticatedUser(String authorizationHeader) {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            throw new RuntimeException("Authorization header is missing or invalid");
+        }
+
+        String token = authorizationHeader.substring(7);
+        String email = extractUserEmail(token);
+
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
     public String generateToken(

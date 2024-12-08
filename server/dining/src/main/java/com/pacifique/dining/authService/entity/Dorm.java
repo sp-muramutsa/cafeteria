@@ -1,4 +1,4 @@
-package com.pacifique.dining.authService.models;
+package com.pacifique.dining.authService.entity;
 
 public enum Dorm{
     COLLETTE,

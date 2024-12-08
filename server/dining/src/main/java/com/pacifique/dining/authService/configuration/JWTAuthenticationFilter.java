@@ -1,4 +1,4 @@
-package com.pacifique.dining.authService.config;
+package com.pacifique.dining.authService.configuration;
 
 import com.pacifique.dining.authService.service.JWTService;
 

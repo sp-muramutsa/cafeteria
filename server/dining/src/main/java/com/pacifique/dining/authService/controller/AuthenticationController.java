@@ -1,6 +1,6 @@
-package com.pacifique.dining.authService.controllers;
+package com.pacifique.dining.authService.controller;
 
-import com.pacifique.dining.authService.HttpMethods.*;
+import com.pacifique.dining.authService.http.*;
 import com.pacifique.dining.authService.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

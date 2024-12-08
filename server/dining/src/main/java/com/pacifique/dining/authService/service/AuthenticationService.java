@@ -1,11 +1,11 @@
 package com.pacifique.dining.authService.service;
 
-import com.pacifique.dining.authService.HttpMethods.*;
-import com.pacifique.dining.authService.models.Dorm;
-import com.pacifique.dining.authService.models.Role;
-import com.pacifique.dining.authService.models.User;
+import com.pacifique.dining.authService.http.*;
+import com.pacifique.dining.authService.entity.Dorm;
+import com.pacifique.dining.authService.entity.Role;
+import com.pacifique.dining.authService.entity.User;
 import com.pacifique.dining.authService.repository.UserRepository;
-import com.pacifique.dining.authService.utils.Validators;
+import com.pacifique.dining.authService.util.Validators;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,7 +24,7 @@ public class AuthenticationService {
     private final EmailService emailService;
 
     // Helper method to generate access and refresh tokens
-    private AuthenticationResponse generateTokenPair(User user) {
+    public AuthenticationResponse generateTokenPair(User user) {
         var accessToken = jwtService.generateAccessToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
 
@@ -48,9 +48,9 @@ public class AuthenticationService {
                 .mcneeseId(request.getMcneeseId())
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
-                .dorm(Dorm.valueOf(request.getDorm().toUpperCase()))
+                .dorm(request.getDorm() != null ? Dorm.valueOf(request.getDorm()) : null)
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.USER)
+                .role(request.getRole() != null ? Role.valueOf(request.getRole()) : Role.ROLE_STUDENT)
                 .build();
 
         userRepository.save(user);

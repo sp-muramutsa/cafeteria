@@ -1,11 +1,14 @@
 package com.pacifique.dining;
 
+
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EnableJpaRepositories
+@EnableJpaAuditing
 @SpringBootApplication
 public class DiningApplication {
 
@@ -29,7 +32,6 @@ public class DiningApplication {
 		System.setProperty("TWILIO_SID", dotenv.get("TWILIO_SID"));
 		System.setProperty("TWILIO_AUTH_TOKEN", dotenv.get("TWILIO_AUTH_TOKEN"));
 		System.setProperty("TWILIO_PHONE_NUMBER", dotenv.get("TWILIO_PHONE_NUMBER"));
-
 
 		SpringApplication.run(DiningApplication.class, args);
 	}

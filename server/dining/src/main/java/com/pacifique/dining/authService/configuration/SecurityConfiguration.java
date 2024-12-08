@@ -1,4 +1,4 @@
-package com.pacifique.dining.authService.config;
+package com.pacifique.dining.authService.configuration;
 
 
 import lombok.RequiredArgsConstructor;
@@ -23,16 +23,20 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)  // Disables CSRF
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/v1/auth/**").permitAll()  // public endpoints
-                        .anyRequest().authenticated() // private routes require authentication
+                        .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("api/v1/users/**").hasRole("ADMIN")
+                        .requestMatchers("api/v1/ingredients/**").hasRole("ADMIN")
+                        .requestMatchers("api/v1/items/**").hasRole("ADMIN")
+                        .requestMatchers("/api/v1/orders/**").hasRole("STUDENT")
+                        .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS) //stateless session management policy(JWT)
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .authenticationProvider(authenticationProvider) // Set up our custom authentication process
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // JWT authentication then username and password authentication
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

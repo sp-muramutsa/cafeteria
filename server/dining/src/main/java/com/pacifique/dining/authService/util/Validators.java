@@ -1,4 +1,4 @@
-package com.pacifique.dining.authService.utils;
+package com.pacifique.dining.authService.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
