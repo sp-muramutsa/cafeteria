@@ -89,11 +89,10 @@ This repository contains both the backend and frontend for the Rowdy's Dining Ap
 ## Features
 
 - **User Authentication**: Users can register, confirm their email, log in, and access private routes using JWT tokens for authentication.
-- **Admin CRUD Operations**:
-  User Management: RESTful API endpoints that support admin CRUD operations in user management.
-  **Ingredient Management**: RESTful API endpoints that support admin CRUD operations in ingredient management.
-  **Food Items Management**: RESTful API endpoints that support admin CRUD operations in food items management.
--**Customer CRUD Operations**: RESTful API endpoints that support customer CRUD operations in order management.
+- **Admin User Management**: RESTful API endpoints that support admin CRUD operations in user management.
+- **Admin Ingredient Management**: RESTful API endpoints that support admin CRUD operations in ingredient management.
+- **Admin Food Items Management**: RESTful API endpoints that support admin CRUD operations in food items management.
+-**Customer CRUD Operations**: RESTful API endpoints that support customer CRUD operations in food order management.
 
 ## Contributing
 
