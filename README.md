@@ -30,6 +30,7 @@ This repository contains both the backend and frontend for the Rowdy's Dining Ap
    ```bash
    git clone https://github.com/sp-muramutsa/cafeteria.git
    cd caferia
+   cd server
    ```
 
 2. **Install dependencies**:
@@ -62,10 +63,10 @@ This repository contains both the backend and frontend for the Rowdy's Dining Ap
 
 ### Frontend
 
-1. **Clone the repository**:
+1. **Navigate to the frontend sub-directory**:
    ```bash
-   git clone https://github.com/sp-muramutsa/cafeteria.git
-   cd cafeteria
+   cd web
+   cd client
    ```
 
 2. **Install dependencies**:
@@ -88,6 +89,11 @@ This repository contains both the backend and frontend for the Rowdy's Dining Ap
 ## Features
 
 - **User Authentication**: Users can register, confirm their email, log in, and access private routes using JWT tokens for authentication.
+- **Admin CRUD Operations**:
+  User Management: RESTful API endpoints that support admin CRUD operations in user management.
+  **Ingredient Management**: RESTful API endpoints that support admin CRUD operations in ingredient management.
+  **Food Items Management**: RESTful API endpoints that support admin CRUD operations in food items management.
+-**Customer CRUD Operations**: RESTful API endpoints that support customer CRUD operations in order management.
 
 ## Contributing
 
